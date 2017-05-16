@@ -7,13 +7,13 @@ var fire = ee.ImageCollection('MODIS/051/MCD45A1')
                               .filterDate('2003-01-01', '2015-12-31');
 
 // function to create mask from QA
-// maskQA2: QA = 1, only good 
+// maskQA: QA = 1, only good 
 var maskQA = function(image) {
   return image.updateMask(image.select("ba_qa").eq(1)
                           .and(image.select("burndate").gt(0))
                           .and(image.select("burndate").lt(366)));
 };
-// maskQA: QA = 1 or 2, good and fairly good
+// maskQA2: QA = 1 or 2, good and fairly good
 var maskQA2 = function(image) {
   return image.updateMask(image.select("ba_qa").lt(3)
                         .and(image.select("ba_qa").gt(0))
